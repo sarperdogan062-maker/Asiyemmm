@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İyi ki doğdun Asiyemmm ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: linear-gradient(135deg, #fff5f8, #ffdce8, #fff8fa);
+    color: #642b40;
+    overflow-x: hidden;
+}
+
+/* GENEL */
+.screen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* AÇILIŞ */
+#opening {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background:
+        radial-gradient(circle at top, #fff 0%, transparent 35%),
+        linear-gradient(135deg, #fff0f5, #ffd5e2);
+    flex-direction: column;
+}
+
+.opening-heart {
+    font-size: 65px;
+    animation: heartbeat 1.5s infinite;
+    margin-bottom: 15px;
+}
+
+#opening h1 {
+    font-size: clamp(42px, 11vw, 75px);
+    color: #b8325a;
+    text-shadow: 0 5px 20px rgba(184,50,90,.18);
+    animation: appear 2s ease;
+}
+
+#opening p {
+    margin-top: 18px;
+    font-size: 20px;
+    animation: appear 2s ease .6s both;
+}
+
+.start-btn,
+.love-btn {
+    margin-top: 35px;
+    border: none;
+    background: linear-gradient(135deg,#b8325a,#e96c91);
+    color: white;
+    padding: 16px 30px;
+    border-radius: 50px;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(184,50,90,.25);
+    transition: .3s;
+}
+
+.start-btn:hover,
+.love-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+/* PASTA */
+#cakeScreen {
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.title {
+    font-size: clamp(32px, 8vw, 50px);
+    color: #a52c50;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+/* PASTA ÇİZİMİ */
+.cake {
+    position: relative;
+    width: 280px;
+    height: 230px;
+    margin: 20px auto 30px;
+}
+
+.plate {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 260px;
+    height: 25px;
+    background: #f7b8c9;
+    border-radius: 50%;
+    box-shadow: 0 7px 10px rgba(80,30,50,.15);
+}
+
+.cake-bottom {
+    position: absolute;
+    bottom: 25px;
+    left: 35px;
+    width: 210px;
+    height: 85px;
+    background: linear-gradient(#d96887,#b84262);
+    border-radius: 15px 15px 25px 25px;
+}
+
+.cake-top {
+    position: absolute;
+    bottom: 90px;
+    left: 35px;
+    width: 210px;
+    height: 55px;
+    background: #fff0f5;
+    border-radius: 50%;
+    border: 5px solid #e99bb0;
+}
+
+.cream {
+    position: absolute;
+    bottom: 78px;
+    left: 40px;
+    width: 200px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.cherry {
+    position: absolute;
+    bottom: 120px;
+    left: 128px;
+    width: 25px;
+    height: 25px;
+    background: #c52d52;
+    border-radius: 50%;
+}
+
+.candle {
+    position: absolute;
+    bottom: 137px;
+    width: 12px;
+    height: 55px;
+    background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 6px,
+        #ef8eaa 6px,
+        #ef8eaa 12px
+    );
+    border-radius: 5px;
+}
+
+.candle1 { left: 88px; }
+.candle2 { left: 134px; }
+.candle3 { left: 180px; }
+
+.flame {
+    position: absolute;
+    width: 18px;
+    height: 25px;
+    background: #ffb52e;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    top: -23px;
+    left: -3px;
+    box-shadow: 0 0 15px #ffb52e;
+    animation: flame 0.7s infinite alternate;
+}
+
+.flame.off {
+    display: none;
+}
+
+.smoke {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    font-size: 22px;
+    opacity: 0;
+}
+
+.smoke.show {
+    animation: smoke 1.5s ease forwards;
+}
+
+/* FOTOĞRAFLAR */
+#photos {
+    padding: 80px 20px;
+    flex-direction: column;
+}
+
+.gallery {
+    width: 100%;
+    max-width: 850px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
+    margin-top: 30px;
+}
+
+.photo {
+    height: 260px;
+    background: rgba(255,255,255,.7);
+    border: 2px solid rgba(184,50,90,.15);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9d6072;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(80,30,50,.1);
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* MEKTUP */
+#letterScreen {
+    padding: 80px 20px;
+    flex-direction: column;
+}
+
+.envelope {
+    width: min(700px, 95%);
+    background: #fffafc;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 15px 45px rgba(80,30,50,.15);
+    text-align: left;
+    line-height: 1.9;
+    font-size: 18px;
+    border: 1px solid #f0c5d1;
+    animation: letterOpen 1s ease;
+}
+
+.envelope h2 {
+    text-align: center;
+    color: #b8325a;
+    margin-bottom: 25px;
+}
+
+.signature {
+    margin-top: 30px;
+    text-align: right;
+    font-size: 20px;
+    color: #a52c50;
+}
+
+/* SON */
+#ending {
+    min-height: 80vh;
+    flex-direction: column;
+}
+
+#ending h2 {
+    color: #b8325a;
+    font-size: clamp(38px,9vw,65px);
+}
+
+#ending p {
+    margin-top: 20px;
+    font-size: 20px;
+    max-width: 650px;
+    line-height: 1.7;
+}
+
+/* KALPLER */
+.heart {
+    position: fixed;
+    bottom: -30px;
+    z-index: 50;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+}
+
+/* ANİMASYONLAR */
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes flame {
+    from { transform: rotate(-45deg) scale(1); }
+    to { transform: rotate(-35deg) scale(1.12); }
+}
+
+@keyframes smoke {
+    0% {
+        opacity: .8;
+        transform: translateY(0) scale(.7);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-45px) translateX(10px) scale(1.4);
+    }
+}
+
+@keyframes smoke {
+    0% { opacity:.8; transform:translateY(0); }
+    100% { opacity:0; transform:translateY(-45px) scale(1.5); }
+}
+
+@keyframes letterOpen {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+    15% { opacity: 1; }
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media(max-width:600px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .photo {
+        height: 300px;
+    }
+
+    .envelope {
+        padding: 25px;
+        font-size: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- AÇILIŞ -->
+<section id="opening" class="screen">
+    <div class="opening-heart">❤️</div>
+
+    <h1>İyi ki doğdun Asiyemmm</h1>
+
+    <p>
+        Bugün senin günün... 🌹
+    </p>
+
+    <button class="start-btn" onclick="startBirthday()">
+        Sürprizi Aç 💕
+    </button>
+</section>
+
+
+<!-- PASTA -->
+<section id="cakeScreen" class="screen hidden">
+
+    <h1 class="title">Asiyemmm için 🎂</h1>
+
+    <p class="subtitle">
+        Bir dilek tut güzelim... ❤️
+    </p>
+
+    <div class="cake">
+
+        <div class="plate"></div>
+
+        <div class="cake-bottom"></div>
+        <div class="cake-top"></div>
+        <div class="cream"></div>
+        <div class="cherry"></div>
+
+        <div class="candle candle1">
+            <div class="flame"></div>
+            <div class="smoke">☁️</div>
+        </div>
+
+        <div class="candle candle2">
+            <div class="flame"></div>
+            <div class="smoke">☁️</div>
+        </div>
+
+        <div class="candle candle3">
+            <div class="flame"></div>
+            <div class="smoke">☁️</div>
+        </div>
+
+    </div>
+
+    <button class="love-btn" id="blowButton" onclick="blowCandles()">
+        💨 Mumları Üfle
+    </button>
+
+    <p id="wishText" class="hidden" style="margin-top:25px;font-size:22px;">
+        Dileğin gerçek olsun Asiyemmm... ✨❤️
+    </p>
+
+    <button
+        class="love-btn hidden"
+        id="letterButton"
+        onclick="showLetter()">
+        💌 Sana bir mektubum var
+    </button>
+
+</section>
+
+
+<!-- MEKTUP -->
+<section id="letterScreen" class="screen hidden">
+
+    <h1 class="title">Sana Bir Mektup 💌</h1>
+
+    <div class="envelope">
+
+        <h2>Asiyemmm ❤️</h2>
+
+        <!-- BURAYA SONRADAN MEKTUBU YAZACAĞIZ -->
+
+        <p>
+            Güzelim, birtanem, sevgilim, hayatım, her şeyim...
+            <br><br>
+
+            Buraya sana özel uzun doğum günü mektubunu
+            daha sonra birlikte yazacağız. ❤️
+            <br><br>
+
+            Bu bölüm tamamen sana özel olacak.
+            İstediğimiz kadar uzun yapabiliriz.
+        </p>
+
+        <div class="signature">
+            Seni çok seven biri... ❤️
+        </div>
+
+    </div>
+
+    <button class="love-btn" onclick="showPhotos()">
+        Anılarımıza Bak 📸
+    </button>
+
+</section>
+
+
+<!-- FOTOĞRAFLAR -->
+<section id="photos" class="screen hidden">
+
+    <h1 class="title">Bizim Güzel Anılarımız ❤️</h1>
+
+    <p class="subtitle">
+        Fotoğrafları daha sonra buraya ekleyeceğiz.
+    </p>
+
+    <div class="gallery">
+
+        <div class="photo">📸 Fotoğraf 1</div>
+        <div class="photo">📸 Fotoğraf 2</div>
+        <div class="photo">📸 Fotoğraf 3</div>
+        <div class="photo">📸 Fotoğraf 4</div>
+        <div class="photo">📸 Fotoğraf 5</div>
+
+    </div>
+
+    <button class="love-btn" onclick="showEnding()">
+        Son Bir Sürpriz ❤️
+    </button>
+
+</section>
+
+
+<!-- SON -->
+<section id="ending" class="screen hidden">
+
+    <h2>İyi ki doğdun Asiyemmm ❤️</h2>
+
+    <p>
+        Asiyemaşkımbebeğimgüzelimbirtanemsevgilimhayatımherşeyimmmm...
+        <br><br>
+
+        İyi ki varsın. İyi ki doğdun.
+        <br>
+        Ve iyi ki hayatımdasın. ❤️
+    </p>
+
+</section>
+
+
+<script>
+
+/* SİTEYİ BAŞLAT */
+function startBirthday() {
+
+    document.getElementById("opening").classList.add("hidden");
+
+    document.getElementById("cakeScreen").classList.remove("hidden");
+
+    createHearts();
+}
+
+
+/* MUMLARI SÖNDÜR */
+function blowCandles() {
+
+    const flames = document.querySelectorAll(".flame");
+    const smokes = document.querySelectorAll(".smoke");
+
+    flames.forEach(flame => {
+        flame.classList.add("off");
+    });
+
+    smokes.forEach(smoke => {
+        smoke.classList.add("show");
+    });
+
+    document.getElementById("blowButton").classList.add("hidden");
+
+    document.getElementById("wishText").classList.remove("hidden");
+
+    setTimeout(() => {
+
+        document.getElementById("letterButton")
+            .classList.remove("hidden");
+
+    }, 1800);
+}
+
+
+/* MEKTUBU GÖSTER */
+function showLetter() {
+
+    document.getElementById("cakeScreen").classList.add("hidden");
+
+    document.getElementById("letterScreen").classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* FOTOĞRAFLARI GÖSTER */
+function showPhotos() {
+
+    document.getElementById("letterScreen").classList.add("hidden");
+
+    document.getElementById("photos").classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* SON SÜRPRİZ */
+function showEnding() {
+
+    document.getElementById("photos").classList.add("hidden");
+
+    document.getElementById("ending").classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* KALPLER */
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    const hearts = ["❤️","💕","💗","💖","💘","🌹"];
+
+    heart.innerHTML =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 22) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+}
+
+
+function createHearts() {
+    setInterval(createHeart, 700);
+}
+
+</script>
+
+</body>
+</html>
