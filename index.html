@@ -257,8 +257,6 @@ body {
     perspective: 1800px;
 }
 
-/* Kitabın dışı */
-
 .book-cover {
     position: absolute;
     inset: 0;
@@ -268,8 +266,6 @@ body {
         0 25px 50px rgba(70,20,40,.25),
         inset 0 0 0 5px rgba(255,255,255,.12);
 }
-
-/* Sayfa */
 
 .page {
     position: absolute;
@@ -283,14 +279,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow:
-        inset 0 0 25px rgba(130,80,50,.08);
+    box-shadow: inset 0 0 25px rgba(130,80,50,.08);
     transition: transform .8s ease;
     transform-origin: left center;
     overflow: hidden;
 }
-
-/* Sayfa dekorasyonu */
 
 .page::before {
     content: "♡";
@@ -324,8 +317,6 @@ body {
     color: #9d6879;
 }
 
-/* Fotoğraf alanı */
-
 .album-photo {
     width: 75%;
     height: 58%;
@@ -339,24 +330,16 @@ body {
     transform: rotate(-2deg);
 }
 
-.album-photo:nth-child(odd) {
-    transform: rotate(2deg);
-}
-
 .album-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Şimdilik boş fotoğraf */
-
 .photo-placeholder {
     color: #a36b7b;
     font-size: 18px;
 }
-
-/* Not */
 
 .photo-note {
     width: 80%;
@@ -366,8 +349,6 @@ body {
     color: #704051;
     font-style: italic;
 }
-
-/* Albüm kontrolleri */
 
 .album-controls {
     display: flex;
@@ -385,11 +366,6 @@ body {
     font-size: 25px;
     cursor: pointer;
     box-shadow: 0 8px 20px rgba(100,30,50,.2);
-    transition: .3s;
-}
-
-.album-btn:hover {
-    transform: scale(1.08);
 }
 
 /* SON */
@@ -450,9 +426,7 @@ body {
         opacity: 0;
     }
 
-    15% {
-        opacity: 1;
-    }
+    15% { opacity: 1; }
 
     to {
         transform: translateY(-110vh) rotate(360deg);
@@ -570,17 +544,12 @@ body {
 
         <h2>Asiyemmm ❤️</h2>
 
-        <!-- MEKTUBU DAHA SONRA DEĞİŞTİRECEĞİZ -->
-
         <p>
             Güzelim, birtanem, sevgilim, hayatım, her şeyim...
             <br><br>
 
             Buraya sana özel uzun doğum günü mektubunu
             daha sonra yazacağız. ❤️
-            <br><br>
-
-            Bu bölüm tamamen sana özel olacak.
         </p>
 
         <div class="signature">
@@ -596,7 +565,7 @@ body {
 </section>
 
 
-<!-- FOTOĞRAF ALBÜMÜ -->
+<!-- ALBÜM -->
 
 <section id="albumScreen" class="screen hidden">
 
@@ -611,8 +580,6 @@ body {
         <div class="book-cover"></div>
 
 
-        <!-- SAYFA 1 -->
-
         <div class="page" id="page1">
 
             <div class="album-photo">
@@ -626,14 +593,10 @@ body {
                 Buraya bu fotoğrafa özel notunu yazacağız... ❤️
             </div>
 
-            <div class="page-number">
-                1
-            </div>
+            <div class="page-number">1</div>
 
         </div>
 
-
-        <!-- SAYFA 2 -->
 
         <div class="page" id="page2">
 
@@ -648,14 +611,10 @@ body {
                 Bu fotoğrafın altına kendi anımızı yazacağız... 🌹
             </div>
 
-            <div class="page-number">
-                2
-            </div>
+            <div class="page-number">2</div>
 
         </div>
 
-
-        <!-- SAYFA 3 -->
 
         <div class="page" id="page3">
 
@@ -670,14 +629,10 @@ body {
                 Buraya üçüncü fotoğrafın hikâyesini yazacağız... 💕
             </div>
 
-            <div class="page-number">
-                3
-            </div>
+            <div class="page-number">3</div>
 
         </div>
 
-
-        <!-- SAYFA 4 -->
 
         <div class="page" id="page4">
 
@@ -692,14 +647,10 @@ body {
                 Dördüncü anımız için özel bir not... 💗
             </div>
 
-            <div class="page-number">
-                4
-            </div>
+            <div class="page-number">4</div>
 
         </div>
 
-
-        <!-- SAYFA 5 -->
 
         <div class="page" id="page5">
 
@@ -714,9 +665,7 @@ body {
                 Daha anlatacak çok anımız var... ❤️
             </div>
 
-            <div class="page-number">
-                5
-            </div>
+            <div class="page-number">5</div>
 
         </div>
 
@@ -763,9 +712,194 @@ body {
 
 <script>
 
+/* SES SİSTEMİ */
+
+let audioContext = null;
+
+function getAudioContext() {
+
+    if (!audioContext) {
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+
+    return audioContext;
+}
+
+
+function playSound(type) {
+
+    const ctx = getAudioContext();
+
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    const now = ctx.currentTime;
+
+
+    /* MUM ÜFLEME */
+
+    if (type === "blow") {
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            220,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            70,
+            now + .35
+        );
+
+        gain.gain.setValueAtTime(
+            .001,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .22,
+            now + .03
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            now + .4
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + .4);
+    }
+
+
+    /* SAYFA */
+
+    if (type === "page") {
+
+        oscillator.type = "triangle";
+
+        oscillator.frequency.setValueAtTime(
+            500,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            180,
+            now + .15
+        );
+
+        gain.gain.setValueAtTime(
+            .001,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .08,
+            now + .02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            now + .2
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + .2);
+    }
+
+
+    /* MEKTUP */
+
+    if (type === "letter") {
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            400,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            650,
+            now + .3
+        );
+
+        gain.gain.setValueAtTime(
+            .001,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .08,
+            now + .05
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            now + .45
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + .5);
+    }
+
+
+    /* KUTLAMA */
+
+    if (type === "celebrate") {
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            523,
+            now
+        );
+
+        oscillator.frequency.setValueAtTime(
+            659,
+            now + .12
+        );
+
+        oscillator.frequency.setValueAtTime(
+            784,
+            now + .24
+        );
+
+        gain.gain.setValueAtTime(
+            .001,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .12,
+            now + .03
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            now + .5
+        );
+
+        oscillator.start(now);
+        oscillator.stop(now + .55);
+    }
+}
+
+
 /* AÇILIŞ */
 
 function startBirthday() {
+
+    getAudioContext();
 
     document.getElementById("opening")
         .classList.add("hidden");
@@ -780,6 +914,8 @@ function startBirthday() {
 /* MUMLAR */
 
 function blowCandles() {
+
+    playSound("blow");
 
     const flames =
         document.querySelectorAll(".flame");
@@ -814,6 +950,8 @@ function blowCandles() {
 
 function showLetter() {
 
+    playSound("letter");
+
     document.getElementById("cakeScreen")
         .classList.add("hidden");
 
@@ -844,7 +982,7 @@ function showAlbum() {
 }
 
 
-/* SAYFA ÇEVİRME */
+/* SAYFA İLERİ */
 
 let currentPage = 1;
 const totalPages = 5;
@@ -852,6 +990,8 @@ const totalPages = 5;
 function nextPage() {
 
     if (currentPage < totalPages) {
+
+        playSound("page");
 
         document.getElementById(
             "page" + currentPage
@@ -862,9 +1002,13 @@ function nextPage() {
 }
 
 
+/* SAYFA GERİ */
+
 function previousPage() {
 
     if (currentPage > 1) {
+
+        playSound("page");
 
         currentPage--;
 
@@ -878,6 +1022,8 @@ function previousPage() {
 /* SON */
 
 function showEnding() {
+
+    playSound("celebrate");
 
     document.getElementById("albumScreen")
         .classList.add("hidden");
@@ -910,7 +1056,11 @@ function createHeart() {
     ];
 
     heart.innerHTML =
-        hearts[Math.floor(Math.random() * hearts.length)];
+        hearts[
+            Math.floor(
+                Math.random() * hearts.length
+            )
+        ];
 
     heart.style.left =
         Math.random() * 100 + "vw";
@@ -930,6 +1080,7 @@ function createHeart() {
 
 
 function createHearts() {
+
     setInterval(createHeart, 700);
 }
 
