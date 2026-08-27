@@ -426,7 +426,9 @@ body {
         opacity: 0;
     }
 
-    15% { opacity: 1; }
+    15% {
+        opacity: 1;
+    }
 
     to {
         transform: translateY(-110vh) rotate(360deg);
@@ -712,194 +714,31 @@ body {
 
 <script>
 
-/* SES SİSTEMİ */
+/* =====================================
+   GERÇEK SES DOSYALARI
+   ===================================== */
 
-let audioContext = null;
-
-function getAudioContext() {
-
-    if (!audioContext) {
-        audioContext =
-            new (window.AudioContext ||
-            window.webkitAudioContext)();
-    }
-
-    if (audioContext.state === "suspended") {
-        audioContext.resume();
-    }
-
-    return audioContext;
-}
+const blowSound = new Audio("sounds/blow.wav");
+const letterSound = new Audio("sounds/letter.wav");
+const pageSound = new Audio("sounds/page.wav");
 
 
-function playSound(type) {
+/* Seslerin her çalışmada baştan başlamasını sağlıyor */
 
-    const ctx = getAudioContext();
+function playSound(sound) {
 
-    const oscillator = ctx.createOscillator();
-    const gain = ctx.createGain();
+    sound.pause();
+    sound.currentTime = 0;
 
-    oscillator.connect(gain);
-    gain.connect(ctx.destination);
-
-    const now = ctx.currentTime;
-
-
-    /* MUM ÜFLEME */
-
-    if (type === "blow") {
-
-        oscillator.type = "sine";
-
-        oscillator.frequency.setValueAtTime(
-            220,
-            now
-        );
-
-        oscillator.frequency.exponentialRampToValueAtTime(
-            70,
-            now + .35
-        );
-
-        gain.gain.setValueAtTime(
-            .001,
-            now
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .22,
-            now + .03
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            now + .4
-        );
-
-        oscillator.start(now);
-        oscillator.stop(now + .4);
-    }
-
-
-    /* SAYFA */
-
-    if (type === "page") {
-
-        oscillator.type = "triangle";
-
-        oscillator.frequency.setValueAtTime(
-            500,
-            now
-        );
-
-        oscillator.frequency.exponentialRampToValueAtTime(
-            180,
-            now + .15
-        );
-
-        gain.gain.setValueAtTime(
-            .001,
-            now
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .08,
-            now + .02
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            now + .2
-        );
-
-        oscillator.start(now);
-        oscillator.stop(now + .2);
-    }
-
-
-    /* MEKTUP */
-
-    if (type === "letter") {
-
-        oscillator.type = "sine";
-
-        oscillator.frequency.setValueAtTime(
-            400,
-            now
-        );
-
-        oscillator.frequency.exponentialRampToValueAtTime(
-            650,
-            now + .3
-        );
-
-        gain.gain.setValueAtTime(
-            .001,
-            now
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .08,
-            now + .05
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            now + .45
-        );
-
-        oscillator.start(now);
-        oscillator.stop(now + .5);
-    }
-
-
-    /* KUTLAMA */
-
-    if (type === "celebrate") {
-
-        oscillator.type = "sine";
-
-        oscillator.frequency.setValueAtTime(
-            523,
-            now
-        );
-
-        oscillator.frequency.setValueAtTime(
-            659,
-            now + .12
-        );
-
-        oscillator.frequency.setValueAtTime(
-            784,
-            now + .24
-        );
-
-        gain.gain.setValueAtTime(
-            .001,
-            now
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .12,
-            now + .03
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            now + .5
-        );
-
-        oscillator.start(now);
-        oscillator.stop(now + .55);
-    }
+    sound.play().catch(error => {
+        console.log("Ses oynatılamadı:", error);
+    });
 }
 
 
 /* AÇILIŞ */
 
 function startBirthday() {
-
-    getAudioContext();
 
     document.getElementById("opening")
         .classList.add("hidden");
@@ -915,7 +754,7 @@ function startBirthday() {
 
 function blowCandles() {
 
-    playSound("blow");
+    playSound(blowSound);
 
     const flames =
         document.querySelectorAll(".flame");
@@ -950,7 +789,7 @@ function blowCandles() {
 
 function showLetter() {
 
-    playSound("letter");
+    playSound(letterSound);
 
     document.getElementById("cakeScreen")
         .classList.add("hidden");
@@ -991,7 +830,7 @@ function nextPage() {
 
     if (currentPage < totalPages) {
 
-        playSound("page");
+        playSound(pageSound);
 
         document.getElementById(
             "page" + currentPage
@@ -1008,7 +847,7 @@ function previousPage() {
 
     if (currentPage > 1) {
 
-        playSound("page");
+        playSound(pageSound);
 
         currentPage--;
 
@@ -1022,8 +861,6 @@ function previousPage() {
 /* SON */
 
 function showEnding() {
-
-    playSound("celebrate");
 
     document.getElementById("albumScreen")
         .classList.add("hidden");
