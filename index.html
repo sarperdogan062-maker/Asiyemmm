@@ -669,59 +669,6 @@ body{
         font-size:18px;
     }
 }
-
-
-.final-surprise{
-    max-width:850px;
-    margin:30px auto 0;
-    text-align:center;
-}
-
-.final-surprise .final-message{
-    animation:finalFadeIn 2s ease;
-}
-
-.final-end-text{
-    margin-top:65px;
-    font-size:38px;
-    color:#a52c50;
-    animation:finalAppear 2s ease;
-}
-
-.final-confetti,
-.final-heart-burst{
-    position:fixed;
-    top:-50px;
-    z-index:9999;
-    pointer-events:none;
-    animation:finalFall 6s linear forwards;
-}
-
-.final-heart-burst{
-    animation:finalHeart 6s ease-out forwards;
-}
-
-@keyframes finalFadeIn{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes finalAppear{
-    from{opacity:0;transform:scale(.7);}
-    to{opacity:1;transform:scale(1);}
-}
-
-@keyframes finalFall{
-    0%{transform:translateY(0) rotate(0deg);opacity:1;}
-    100%{transform:translateY(110vh) rotate(720deg);opacity:0;}
-}
-
-@keyframes finalHeart{
-    0%{transform:translateY(35vh) scale(.3);opacity:0;}
-    20%{opacity:1;}
-    100%{transform:translateY(-35vh) scale(1.4);opacity:0;}
-}
-
 </style>
 </head>
 
@@ -1015,41 +962,23 @@ Tekrardan iyi ki doğmuşsun, hayatımın anlamı. Seni çok çok çok çok çok
 
     </div>
 
-    <div id="finalSurprise" class="final-surprise hidden">
+    <p class="final-message">
 
-        <p class="final-message">
-            Sevgilim, bu siteyi her şeyi senin için yaptım. Umarım beğenirsin.
-            Sana hediye alamıyorum şu an belki ama bunu senin için ufak bir hediye
-            olarak kabul etmeni istiyorum.
+        İyi ki doğdun Birtanemmm ❤️
 
-            <br><br>
+        <br><br>
 
-            Daha birlikte yaşayacağımız, güleceğimiz, sarılacağımız ve yıllar sonra
-            tekrar dönüp bakacağımız çok fazla anımız olsun. Belki o zaman daha dolu
-            dolu bir fotoğraf albümümüz olur. ❤️
+        İyi ki varsın.
+        <br>
+        İyi ki hayatımdasın.
 
-            <br><br>
+        <br><br>
 
-            <b>İyi ki o gün, o saatte, o grupta karşılaşmışız.</b>
+        Seni her şeyden çok seviyorum.
+        Sonsuza kadar da seveceğim.♾️
+        💞
 
-            <br><br>
-
-            <b>İyi ki sana o ilk mesajı atmışım.</b>
-
-            <br><br>
-
-            <b>İyi ki hayatımdasın sevgilim.</b>
-
-            <br><br>
-
-            <b>Seni çok seviyorum ve sonsuza kadar seveceğim Asiyem. ❤️</b>
-        </p>
-
-        <h1 id="finalEndText" class="final-end-text hidden">
-            İyi ki doğdun Asiyemmm ❤️
-        </h1>
-
-    </div>
+    </p>
 
 </section>
 
@@ -1366,7 +1295,7 @@ note:"Bu ise dünyalar güzeli sevgilimin attığı 2.fotoğraf(O çok güzel☺
 {
 photo:"photos/foto9.jpg",
 note:"Ohh bunu yerim ben birtanemin attığı ilk kombin fotoğrafı eridim🫠🤤"
-
+},
 {
 photo:"photos/foto10.jpg",
 note:"Eveeettt Dünya Sakız Patlatma 1.si Asiye Ecrin Nazlı Tebriklerrr👏🙀"
@@ -1740,64 +1669,6 @@ function createHearts(){
         800
     );
 }
-
-/* VİDEO BİTİNCE FİNAL */
-
-const surpriseVideo = document.getElementById("surpriseVideo");
-
-if (surpriseVideo) {
-    surpriseVideo.addEventListener("ended", function(){
-
-        const finalSurprise = document.getElementById("finalSurprise");
-        finalSurprise.classList.remove("hidden");
-
-        window.scrollTo({
-            top:document.body.scrollHeight,
-            behavior:"smooth"
-        });
-
-        setTimeout(function(){
-            createFinalConfetti();
-            createFinalHearts();
-        },4000);
-
-        setTimeout(function(){
-            document.getElementById("finalEndText").classList.remove("hidden");
-        },8000);
-
-    });
-}
-
-function createFinalConfetti(){
-    const symbols=["❤️","💕","💖","✨","⭐","🎀","🌸"];
-
-    for(let i=0;i<100;i++){
-        const piece=document.createElement("div");
-        piece.className="final-confetti";
-        piece.innerHTML=symbols[Math.floor(Math.random()*symbols.length)];
-        piece.style.left=Math.random()*100+"vw";
-        piece.style.animationDelay=Math.random()*.8+"s";
-        piece.style.fontSize=(15+Math.random()*25)+"px";
-        document.body.appendChild(piece);
-
-        setTimeout(function(){piece.remove();},7000);
-    }
-}
-
-function createFinalHearts(){
-    for(let i=0;i<35;i++){
-        const heart=document.createElement("div");
-        heart.className="final-heart-burst";
-        heart.innerHTML=["❤️","💕","💖","💗","✨"][Math.floor(Math.random()*5)];
-        heart.style.left=(40+Math.random()*20)+"vw";
-        heart.style.fontSize=(18+Math.random()*30)+"px";
-        heart.style.animationDelay=Math.random()*.5+"s";
-        document.body.appendChild(heart);
-
-        setTimeout(function(){heart.remove();},7000);
-    }
-}
-
 
 </script>
 
